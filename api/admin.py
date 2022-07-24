@@ -1,7 +1,10 @@
 from atexit import register
+from xml.etree.ElementTree import Comment
 from django.contrib import admin
-from .models import Article
+from .models import Article, Category, Comment
 
 # Register your models here.
 
 admin.site.register(Article)
+admin.site.register(Category)
+admin.site.register(Comment)
