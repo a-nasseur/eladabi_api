@@ -6,10 +6,11 @@ from .models import Comment
 
 class ArticleSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
+    category = serializers.ReadOnlyField(source='category.name')
 
     class Meta:
         model = Article
-        fields = ['id',  'title', 'slug', 'excerpt', 'featured',
+        fields = ['id',  'title', 'slug', 'excerpt', 'featured', 'category',
                   'author', 'thumbnail', 'image', 'body', 'created_date']
 
 

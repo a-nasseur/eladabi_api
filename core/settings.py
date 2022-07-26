@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'cloudinary',
-    "corsheaders"
+    "corsheaders",
+    'tinymce',
 ]
 
 MIDDLEWARE = [

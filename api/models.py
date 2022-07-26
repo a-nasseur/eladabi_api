@@ -1,10 +1,8 @@
-from pyexpat import model
-from statistics import mode
-from unicodedata import category
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from tinymce import models as tinymce_models
 
 
 class Category(models.Model):
@@ -36,7 +34,7 @@ class Article(models.Model):
         'Category', related_name='category', on_delete=models.CASCADE, null=True, blank=True)
     thumbnail = CloudinaryField('uploads')
     image = CloudinaryField('uploads')
-    body = models.TextField()
+    body = tinymce_models.HTMLField()
     created_date = models.DateTimeField(auto_now_add=True, null=True)
 
     def save(self, *args, **kwargs):
