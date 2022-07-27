@@ -5,6 +5,7 @@ from .serializers import ArticleSerializer
 from .serializers import CategorySerializer
 from .serializers import CommentSerializers
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 
 class ArticleList(generics.ListCreateAPIView):
@@ -29,5 +30,6 @@ class CategoryList(generics.ListAPIView):
 
 
 class CommentList(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Comment.objects.all().order_by('-created_date')
     serializer_class = CommentSerializers
