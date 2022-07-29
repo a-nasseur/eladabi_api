@@ -1,3 +1,4 @@
+from urllib import request
 from .models import Article
 from .models import Category
 from .models import Comment
@@ -29,7 +30,10 @@ class CategoryList(generics.ListAPIView):
     serializer_class = CategorySerializer
 
 
-class CommentList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = Comment.objects.all().order_by('-created_date')
+class CommentList(generics.ListCreateAPIView):
     serializer_class = CommentSerializers
+
+    def get_queryset(self):
+
+        article = self.request.query_params.get('article')
+        return Comment.objects.all().filter(article=article).order_by('-created_date')

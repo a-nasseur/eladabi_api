@@ -11,7 +11,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = ['id',  'title', 'slug', 'excerpt', 'featured', 'category',
-                  'author', 'thumbnail', 'image', 'body', 'created_date']
+                  'author', 'thumbnail', 'image', 'body', 'tags', 'created_date']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -22,7 +22,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class CommentSerializers(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    article = serializers.ReadOnlyField(source='article.id')
 
     class Meta:
         model = Comment
-        fields = ['id', 'owner', 'message']
+        fields = ['id', 'owner', 'article', 'message', 'created_date']

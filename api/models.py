@@ -3,6 +3,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from tinymce import models as tinymce_models
+from django.contrib.postgres.fields import ArrayField
 
 
 class Category(models.Model):
@@ -17,10 +18,19 @@ class Comment(models.Model):
     message = models.TextField()
     owner = models.ForeignKey(
         'auth.User', related_name='owner', on_delete=models.CASCADE, null=True)
+    article = models.ForeignKey(
+        'Article', related_name='article', on_delete=models.CASCADE, null=True)
     created_date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.message
+
+
+class Tag(models.Model):
+    title = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Article(models.Model):
@@ -34,6 +44,7 @@ class Article(models.Model):
         'Category', related_name='category', on_delete=models.CASCADE, null=True, blank=True)
     thumbnail = CloudinaryField('uploads')
     image = CloudinaryField('uploads')
+    tags = ArrayField(models.CharField(max_length=50), blank=True, null=True)
     body = tinymce_models.HTMLField()
     created_date = models.DateTimeField(auto_now_add=True, null=True)
 
