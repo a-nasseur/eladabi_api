@@ -1,12 +1,17 @@
-from urllib import request
 from .models import Article
 from .models import Category
 from .models import Comment
 from .serializers import ArticleSerializer
 from .serializers import CategorySerializer
 from .serializers import CommentSerializers
+from .serializers import UserSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
+
+class UserList(generics.CreateAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
 
 
 class ArticleList(generics.ListCreateAPIView):
